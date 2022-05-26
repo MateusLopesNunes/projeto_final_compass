@@ -2,20 +2,20 @@ package com.br.compass.dto;
 
 public class ErrorFormDto {
 	
-	private String field;
+	private Integer status_code;
 	private String message;
 	
-	public ErrorFormDto(String field, String message) {
-		this.field = field;
+	public ErrorFormDto(Integer status_code, String message) {
+		this.status_code = status_code;
 		this.message = message;
 	}
 	
-	public String getField() {
-		return field;
+	public Integer getStatus_code() {
+		return status_code;
 	}
 	
-	public void setField(String field) {
-		this.field = field;
+	public void setStatus_code(Integer field) {
+		this.status_code = field;
 	}
 	
 	public String getMessage() {

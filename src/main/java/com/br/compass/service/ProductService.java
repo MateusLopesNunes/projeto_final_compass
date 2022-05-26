@@ -1,12 +1,14 @@
 package com.br.compass.service;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.br.compass.dto.ProductDto;
@@ -24,8 +26,8 @@ public class ProductService {
 		this.productRepository = productRepository;
 	}
 
-	public List<ProductDto> findAll() {
-		List<Product> products = productRepository.findAll();
+	public Page<ProductDto> findAll(Pageable page) {
+		Page<Product> products = productRepository.findAll(page);
 		return ProductDto.modelToDtoList(products);
  	}
 	
@@ -60,6 +62,15 @@ public class ProductService {
 		if (product.isPresent()) {
 			Product update = productForm.update(id, productRepository);
 			return ResponseEntity.ok(new ProductDto(update));
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	public ResponseEntity<ProductDto> search(String name, String max_price, String min_price) {
+		Optional<Product> product = productRepository.findByName(name);
+		
+		if (product.isPresent()) {
+			return ResponseEntity.ok(new ProductDto(product.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+
 import com.br.compass.model.Product;
 
 public class ProductDto {
@@ -36,7 +38,7 @@ public class ProductDto {
 		return price;
 	}
 	
-	public static List<ProductDto> modelToDtoList(List<Product> product) {
-		return product.stream().map(ProductDto::new).collect(Collectors.toList());
+	public static Page<ProductDto> modelToDtoList(Page<Product> product) {
+		return product.map(ProductDto::new);
 	}
 }
