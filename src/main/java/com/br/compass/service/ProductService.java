@@ -1,64 +1,28 @@
 package com.br.compass.service;
 
-import java.net.URI;
-import java.util.Optional;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.br.compass.dto.ProductDto;
 import com.br.compass.dto.ProductForm;
-import com.br.compass.model.Product;
-import com.br.compass.repository.ProductRepository;
 
-@Service
-public class ProductService {
+public interface ProductService {
 
-	private ProductRepository productRepository;
+	public Page<ProductDto> findAll(Pageable page);
 
-	@Autowired
-	public ProductService(ProductRepository productRepository) {
-		this.productRepository = productRepository;
-	}
+	public ResponseEntity<ProductDto> saveProduct(ProductForm productForm, UriComponentsBuilder builder);
 
-	public Page<ProductDto> findAll(Pageable page) {
-		Page<Product> products = productRepository.findAll(page);
-		return ProductDto.modelToDtoList(products);
-	}
+	public ResponseEntity<ProductDto> findById(Long id);
 
-	public ResponseEntity<ProductDto> saveProduct(ProductForm productForm, UriComponentsBuilder builder) {
-		Product product = productRepository.save(productForm.dtoToProduct());
-		URI uri = builder.path("/products/{id}").buildAndExpand(product.getId()).toUri();
-		return ResponseEntity.created(uri).body(new ProductDto(product));
-	}
+	public ResponseEntity<?> deleteById(Long id);
 
-	public ResponseEntity<ProductDto> findById(Long id) {
-		Optional<Product> product = productRepository.findById(id);
+	public ResponseEntity<ProductDto> updateProduct(ProductForm productForm, Long id);
 
-		return ResponseEntity.ok(new ProductDto(product.get()));
-	}
-
-	public ResponseEntity<?> deleteById(Long id) {
-		Optional<Product> product = productRepository.findById(id);
-
-		productRepository.deleteById(id);
-		return ResponseEntity.ok().build();
-	}
-
-	public ResponseEntity<ProductDto> updateProduct(ProductForm productForm, Long id) {
-		Optional<Product> product = productRepository.findById(id);
-
-		Product update = productForm.update(id, productRepository);
-		return ResponseEntity.ok(new ProductDto(update));
-	}
-
-	public ResponseEntity<ProductDto> search(String name, String max_price, String min_price) {
-		Optional<Product> product = productRepository.findByName(name);
-		return ResponseEntity.ok(new ProductDto(product.get()));
-	}
+	public List<ProductDto> search(@RequestParam(required = false) Double maxPrice,
+			@RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q);
 }

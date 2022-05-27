@@ -1,5 +1,7 @@
 package com.br.compass.controller;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -61,8 +63,8 @@ public class ProductController {
 		return productService.updateProduct(productForm, id);
 	}
 	
-	@GetMapping("/q")
-	public ResponseEntity<ProductDto> search(@RequestParam(required = false) String name, @RequestParam(required = false) String max_price, @RequestParam(required = false) String min_price) {
-		return productService.search(name, max_price, min_price);
+	@GetMapping("/search")
+	public List<ProductDto> search(@RequestParam(required = false) Double maxPrice, @RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q) {
+		return productService.search(maxPrice, minPrice, q);
 	}
 }

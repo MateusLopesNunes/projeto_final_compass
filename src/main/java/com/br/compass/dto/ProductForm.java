@@ -1,7 +1,5 @@
 package com.br.compass.dto;
 
-import java.math.BigDecimal;
-
 import javax.validation.constraints.NotBlank;
 
 import com.br.compass.model.Product;
@@ -13,7 +11,7 @@ public class ProductForm {
 	private String name;
 	@NotBlank
 	private String description;
-	private BigDecimal price;
+	private Double price;
 	
 	public String getName() {
 		return name;
@@ -27,10 +25,10 @@ public class ProductForm {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public BigDecimal getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(BigDecimal price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	

@@ -1,6 +1,5 @@
 package com.br.compass.dto;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,7 @@ public class ProductDto {
 	private Long id;
 	private String name;
 	private String description;
-	private BigDecimal price;
+	private Double price;
 	
 	public ProductDto(Product product) {
 		this.id = product.getId();
@@ -34,11 +33,15 @@ public class ProductDto {
 		return description;
 	}
 
-	public BigDecimal getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 	
-	public static Page<ProductDto> modelToDtoList(Page<Product> product) {
+	public static Page<ProductDto> modelToDtoPage(Page<Product> product) {
 		return product.map(ProductDto::new);
+	}
+	
+	public static List<ProductDto> modelToDtoList(List<Product> product) {
+		return product.stream().map(ProductDto::new).collect(Collectors.toList());
 	}
 }
