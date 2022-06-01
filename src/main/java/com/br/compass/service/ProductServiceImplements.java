@@ -43,14 +43,12 @@ public class ProductServiceImplements implements ProductService {
 	@Override
 	public ResponseEntity<ProductDto> findById(Long id) {
 		Optional<Product> product = productRepository.findById(id);
-
 		return ResponseEntity.ok(new ProductDto(product.get()));
 	}
 
 	@Override
 	public ResponseEntity<?> deleteById(Long id) {
 		Optional<Product> product = productRepository.findById(id);
-
 		productRepository.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
@@ -58,7 +56,6 @@ public class ProductServiceImplements implements ProductService {
 	@Override
 	public ResponseEntity<ProductDto> updateProduct(ProductForm productForm, Long id) {
 		Optional<Product> product = productRepository.findById(id);
-
 		Product update = productForm.update(id, productRepository);
 		return ResponseEntity.ok(new ProductDto(update));
 	}

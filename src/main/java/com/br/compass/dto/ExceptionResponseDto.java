@@ -1,11 +1,11 @@
 package com.br.compass.dto;
 
-public class ErrorFormDto {
+public class ExceptionResponseDto {
 	
 	private Integer status_code;
 	private String message;
 	
-	public ErrorFormDto(Integer status_code, String message) {
+	public ExceptionResponseDto(Integer status_code, String message) {
 		this.status_code = status_code;
 		this.message = message;
 	}

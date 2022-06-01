@@ -1,6 +1,8 @@
 package com.br.compass.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import com.br.compass.model.Product;
 import com.br.compass.repository.ProductRepository;
@@ -9,8 +11,12 @@ public class ProductForm {
 	
 	@NotBlank
 	private String name;
+	
 	@NotBlank
 	private String description;
+	
+	@NotNull
+	@Positive
 	private Double price;
 	
 	public String getName() {

@@ -59,7 +59,7 @@ public class ProductController {
 	
 	@Transactional
 	@PutMapping("/{id}")
-	public ResponseEntity<ProductDto> update(@RequestBody ProductForm productForm, @PathVariable Long id) {
+	public ResponseEntity<ProductDto> update(@RequestBody @Valid ProductForm productForm, @PathVariable Long id) {
 		return productService.updateProduct(productForm, id);
 	}
 	
