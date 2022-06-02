@@ -61,9 +61,9 @@ public class ProductServiceImplements implements ProductService {
 	}
 
 	@Override
-	public List<ProductDto> search(@RequestParam(required = false) Double maxPrice,
-			@RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q) {
-		List<Product> product = productRepository.findByName(maxPrice, minPrice, q);
-		return ProductDto.modelToDtoList(product);
+	public Page<ProductDto> search(@RequestParam(required = false) Double maxPrice,
+			@RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q, Pageable page) {
+		Page<Product> product = productRepository.findByName(maxPrice, minPrice, q, page);
+		return ProductDto.modelToDtoPage(product);
 	}
 }

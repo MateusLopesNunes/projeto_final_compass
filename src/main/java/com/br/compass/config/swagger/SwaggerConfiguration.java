@@ -1,7 +1,8 @@
-package com.br.compass.config;
+package com.br.compass.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
 
 import com.br.compass.model.Product;
 
@@ -20,6 +21,7 @@ public class SwaggerConfiguration {
                 .apis(RequestHandlerSelectors.basePackage("com.br.compass"))
                 .paths(PathSelectors.ant("/**"))
                 .build()
-                .ignoredParameterTypes(Product.class);
+                .ignoredParameterTypes(Product.class)
+                .directModelSubstitute(Pageable.class, SwaggerPageable.class);
     }
 }

@@ -64,7 +64,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/search")
-	public List<ProductDto> search(@RequestParam(required = false) Double maxPrice, @RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q) {
-		return productService.search(maxPrice, minPrice, q);
+	public Page<ProductDto> search(@RequestParam(required = false) Double maxPrice, @RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q, Pageable page) {
+		return productService.search(maxPrice, minPrice, q, page);
 	}
 }

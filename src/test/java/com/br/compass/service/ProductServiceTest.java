@@ -1,21 +1,19 @@
 package com.br.compass.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-import com.br.compass.dto.ProductDto;
 import com.br.compass.model.Product;
 import com.br.compass.repository.ProductRepository;
 
@@ -31,19 +29,62 @@ public class ProductServiceTest {
 	private ProductService productService;
 	
 	@Test
-	public void testeDoTeste() {
-        List<Product> productList = this.mockListProduct();
-        
-        productList.forEach(x -> System.out.println(x.toString()));
+	public void mustFindAll() {
+		List<Product> productsMock = mockListProduct();
+		
+		Mockito.when(productRepository.findAll()).thenReturn(productsMock);
+		assertEquals(productsMock, productRepository.findAll());
+	}
+	
+	@Test
+	public void mustFindById() {
+		Product productMock = mockProduct(1L);
+		
+		Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(productMock));
+		assertEquals(productRepository.findById(1L).get(), productMock);
+	}
+	
+	@Test
+	public void mustSave() {
+		Product productMock = mockProduct(1L);
+		
+		productRepository.save(productMock);
+		Mockito.verify(productRepository).save(productMock);
+	}
+	
+	@Test
+	public void mustUpdate() {
+		Product productMock = mockProduct(1L);
+		Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(productMock));
+		
+		Product product = productRepository.findById(1L).get();
+		product.setId(2L);
+		product.setName("Produto2"); 
+		product.setDescription("descrição2");
+		product.setPrice(3545.0);
+		Product save = productRepository.save(product);
+		System.out.println(save);
+		
+		assertEquals(save, product);
+		
+		/*Product productMock = mockProduct(1L);
+		
+		productRepository.save(productMock);
+		Mockito.verify(productRepository).save(productMock);*/
+	}
+	
+	@Test
+	public void mustDeleteProductById() {
+		productService.deleteById(1L);
+		Mockito.verify(productRepository).deleteById(1L);;
 	}
 
 	private List<Product> mockListProduct() {
-		List<Product> products = new ArrayList();
+		List<Product> products = new ArrayList<>();
 		
 		for (Long i = 0L; i < 5; i++) {
 			products.add(mockProduct(i + 1));
 		}
-		
 		return products;
 	}
 
@@ -53,6 +94,4 @@ public class ProductServiceTest {
 		product.setId(id);
 		return product;
 	}
-
-
 }

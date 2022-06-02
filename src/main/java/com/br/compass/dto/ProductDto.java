@@ -40,8 +40,4 @@ public class ProductDto {
 	public static Page<ProductDto> modelToDtoPage(Page<Product> product) {
 		return product.map(ProductDto::new);
 	}
-	
-	public static List<ProductDto> modelToDtoList(List<Product> product) {
-		return product.stream().map(ProductDto::new).collect(Collectors.toList());
-	}
 }

@@ -23,6 +23,6 @@ public interface ProductService {
 
 	public ResponseEntity<ProductDto> updateProduct(ProductForm productForm, Long id);
 
-	public List<ProductDto> search(@RequestParam(required = false) Double maxPrice,
-			@RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q);
+	public Page<ProductDto> search(@RequestParam(required = false) Double maxPrice,
+			@RequestParam(required = false) Double minPrice, @RequestParam(required = false) String q, Pageable page);
 }
