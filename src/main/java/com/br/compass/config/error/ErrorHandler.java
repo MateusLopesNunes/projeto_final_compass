@@ -29,44 +29,44 @@ public class ErrorHandler {
 	private MessageSource messageSource;
 
 	@ExceptionHandler(NoSuchElementException.class)
-	public ResponseEntity<Object> exceptionNoSuchElement(NoSuchElementException exception) {
+	public ResponseEntity<?> exceptionNoSuchElement(NoSuchElementException exception) {
 		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage()),
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
-	public ResponseEntity<Object> exceptionTypeMismatch(MethodArgumentTypeMismatchException exception) {
+	public ResponseEntity<?> exceptionTypeMismatch(MethodArgumentTypeMismatchException exception) {
 		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.NOT_FOUND.value(), exception.getMessage()),
 				HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(EmptyResultDataAccessException.class)
-	public ResponseEntity<Object> exceptionResultDataAccess(EmptyResultDataAccessException exception) {
+	public ResponseEntity<?> exceptionResultDataAccess(EmptyResultDataAccessException exception) {
 		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage()),
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(ConverterNotFoundException.class)
-	public ResponseEntity<Object> exceptionConverterNotFound(ConverterNotFoundException exception) {
+	public ResponseEntity<?> exceptionConverterNotFound(ConverterNotFoundException exception) {
 		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage()),
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public ResponseEntity<Object> exceptionMethodNotSupported(HttpRequestMethodNotSupportedException exception) {
+	public ResponseEntity<?> exceptionMethodNotSupported(HttpRequestMethodNotSupportedException exception) {
 		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.METHOD_NOT_ALLOWED.value(), exception.getMessage()),
 				HttpStatus.METHOD_NOT_ALLOWED);
 	}
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<Object> exceptionMessageNoReadable(HttpMessageNotReadableException exception) {
+	public ResponseEntity<?> exceptionMessageNoReadable(HttpMessageNotReadableException exception) {
 		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.BAD_REQUEST.value(), "Validation error"),
 				HttpStatus.BAD_REQUEST);
 	}
 	
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public List<ExceptionResponseDto> handle(MethodArgumentNotValidException exception) {
+	public List<?> handle(MethodArgumentNotValidException exception) {
 		List<ExceptionResponseDto> dto = new ArrayList<>();
 		List<FieldError> fieldError = exception.getBindingResult().getFieldErrors();
 		
