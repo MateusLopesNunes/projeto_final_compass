@@ -1,5 +1,5 @@
 # Projeto final do programa de bolsas open bank da empresa Compass uol
-Contrução de uma api simples, mas muito completa de um sistema de crud de produtos
+Construção de uma api simples, mas muito completa de um sistema de crud de produtos
 
 ## Tecnologias utilizadas:
 * Java
@@ -7,7 +7,7 @@ Contrução de uma api simples, mas muito completa de um sistema de crud de prod
 * Swagger
 
 ## Autor do projeto: 
-Mateus Lopes nunes  
+Mateus Lopes Nunes  
 mateuslopesnunes@outlook.com
 
 ## Como executar o sistema
