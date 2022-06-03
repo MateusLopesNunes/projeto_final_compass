@@ -27,7 +27,7 @@ public class ProductServiceTest {
 	
 	@Autowired
 	private ProductService productService;
-	
+		
 	@Test
 	public void mustFindAll() {
 		List<Product> productsMock = mockListProduct();
@@ -42,41 +42,6 @@ public class ProductServiceTest {
 		
 		Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(productMock));
 		assertEquals(productRepository.findById(1L).get(), productMock);
-	}
-	
-	@Test
-	public void mustSave() {
-		Product productMock = mockProduct(1L);
-		
-		productRepository.save(productMock);
-		Mockito.verify(productRepository).save(productMock);
-	}
-	
-	@Test
-	public void mustUpdate() {
-		Product productMock = mockProduct(1L);
-		Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(productMock));
-		
-		Product product = productRepository.findById(1L).get();
-		product.setId(2L);
-		product.setName("Produto2"); 
-		product.setDescription("descrição2");
-		product.setPrice(3545.0);
-		Product save = productRepository.save(product);
-		System.out.println(save);
-		
-		assertEquals(save, product);
-		
-		/*Product productMock = mockProduct(1L);
-		
-		productRepository.save(productMock);
-		Mockito.verify(productRepository).save(productMock);*/
-	}
-	
-	@Test
-	public void mustDeleteProductById() {
-		productService.deleteById(1L);
-		Mockito.verify(productRepository).deleteById(1L);;
 	}
 
 	private List<Product> mockListProduct() {

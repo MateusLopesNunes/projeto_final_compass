@@ -47,10 +47,10 @@ public class ProductServiceImplements implements ProductService {
 	}
 
 	@Override
-	public ResponseEntity<?> deleteById(Long id) {
+	public ResponseEntity<ProductDto> deleteById(Long id) {
 		Optional<Product> product = productRepository.findById(id);
 		productRepository.deleteById(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(new ProductDto(product.get()));
 	}
 
 	@Override

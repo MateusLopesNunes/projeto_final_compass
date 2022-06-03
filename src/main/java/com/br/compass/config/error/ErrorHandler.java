@@ -58,12 +58,6 @@ public class ErrorHandler {
 				HttpStatus.METHOD_NOT_ALLOWED);
 	}
 	
-	/*@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Object> exceptionMethodNotSupported(MethodArgumentNotValidException exception) {
-		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.BAD_REQUEST.value(), "Validation error"),
-				HttpStatus.BAD_REQUEST);
-	}*/
-	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<Object> exceptionMessageNoReadable(HttpMessageNotReadableException exception) {
 		return new ResponseEntity<>(new ExceptionResponseDto(HttpStatus.BAD_REQUEST.value(), "Validation error"),
